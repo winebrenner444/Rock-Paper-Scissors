@@ -5,21 +5,17 @@ let playerSelection;
 let input;
 let computerSelection;
 
+//gets computer random choice
 function getComputerChoice(array) {
     return(array[Math.floor(Math.random() * array.length)])
 }
 
  computerSelection = getComputerChoice(choices);
-//console.log(computerSelection);
 
 
 
-//playerSelection = playerSelection.toLowerCase();
-
-
+//logic for each round played
 function playRound(computerSelection, playerSelection) {
-        playerSelection = prompt("rock, paper or scissors?");
-        playerSelection = playerSelection.toLowerCase();
        if(playerSelection === "rock") {
         if(computerSelection === "scissors") {
             ++playerScore;
@@ -59,13 +55,22 @@ function playRound(computerSelection, playerSelection) {
     }
 }
 
+//get player choice and play round
+const btns = document.querySelectorAll('button');
 
+btns.forEach(btn => {
+    btn.addEventListener('click', (event) => {
+        playRound(computerSelection, event.target.id)
+    console.log(event.target.id);
+});
+});
 
-
-function game() {
+/*
+function playGame() {
     for(let i = 0; i < 5; i++) {
         computerSelection = getComputerChoice(choices);
         playRound(computerSelection, playerSelection);
+        console.log((playerScore) + " - " + (computerScore));
     } if(playerScore > computerScore) {
                 alert("Congratulations! You won the match!");
             } else if(computerScore > playerScore) {
@@ -77,4 +82,5 @@ function game() {
             }
         }
 
-game();
+playGame();
+*/

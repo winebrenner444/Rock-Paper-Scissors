@@ -4,83 +4,68 @@ let computerScore = 0;
 let playerSelection;
 let input;
 let computerSelection;
+let playerScoreBox = document.querySelector('#player-score-container');
+let computerScoreBox = document.querySelector('#cpu-score-container');
+let pDiv = document.createElement('div');
+let cDiv =document.createElement('div');
+const btns = document.querySelectorAll('button');
+
 
 //gets computer random choice
 function getComputerChoice(array) {
-    return(array[Math.floor(Math.random() * array.length)])
+    return(array[Math.floor(Math.random() * array.length)]);
 }
 
- computerSelection = getComputerChoice(choices);
+ 
+//keeps scores
+function keepPlayerScore() {
+    playerScoreBox.textContent = playerScore;
+}
+
+function keepComputerScore() {
+    computerScoreBox.textContent = computerScore;
+}
 
 
 
 //logic for each round played
 function playRound(computerSelection, playerSelection) {
-       if(playerSelection === "rock") {
-        if(computerSelection === "scissors") {
-            ++playerScore;
-            alert("You win! Rock beats Scissors!");
-        } else if(computerSelection === "paper") {
-            ++computerScore;
-            alert("You lose! Paper covers Rock!");
-        } else {
-            alert("Draw! You both chose Rock!");
-        }
-    } else if(playerSelection === "paper") {
-        if(computerSelection === "rock") {
-            ++playerScore;
-            alert("You win! Paper covers Rock!");
-        } else if(computerSelection === "scissors") {
-            ++computerScore;
-            alert("You lose! Scissors cut Paper!");
-        } else {
-            alert("Draw! You both chose Paper!");
-        }
-    } else if(playerSelection === "scissors") {
-        if(computerSelection === "paper") {
-            ++playerScore;
-            alert("You win! Scissors cut paper!");
-        } else if(computerSelection === "rock") {
-            ++computerScore;
-            alert("You lose! Rock beats Scissors!");
-        } else if(playerSelection === null || playerSelection === "undefined") {
-           alert("Cancelled"); 
-        }
-           else {
-            alert("Draw! You both chose Scissors!");
-        }
+    if (computerSelection == playerSelection) {
+        alert("Tie game!");
+      } else if (
+        (computerSelection == "rock" && playerSelection == "scissors") ||
+        (computerSelection == "scissors" && playerSelection == "paper") ||
+        (computerSelection == "paper" && playerSelection == "rock")
+      ) {
+        computerScore = ++computerScore;
+        keepComputerScore();
+        alert('Computer wins this time!');
     } else {
-        alert("Invalid input, please choose Rock, Paper or Sccisors!");
-        return(input = "invalid");
+        playerScore = ++playerScore;
+        keepPlayerScore();
+        alert('Way to go! You win!');
     }
 }
 
-//get player choice and play round
-const btns = document.querySelectorAll('button');
 
-btns.forEach(btn => {
+
+
+pDiv.classList.add('player-score');
+playerScoreBox.appendChild(pDiv);
+playerScoreBox.textContent = playerScore;
+cDiv.classList.add('computer-score');
+computerScoreBox.appendChild(cDiv);
+computerScoreBox.textContent = computerScore;
+
+
+
+//plays round by click
+btns.forEach (btn => {
     btn.addEventListener('click', (event) => {
-        playRound(computerSelection, event.target.id)
-    console.log(event.target.id);
-});
-});
-
-/*
-function playGame() {
-    for(let i = 0; i < 5; i++) {
         computerSelection = getComputerChoice(choices);
-        playRound(computerSelection, playerSelection);
-        console.log((playerScore) + " - " + (computerScore));
-    } if(playerScore > computerScore) {
-                alert("Congratulations! You won the match!");
-            } else if(computerScore > playerScore) {
-                alert("I'm sorry, you lost the match!");
-            } else if(playerScore === computerScore) {
-                alert("Woah! The match was a draw!");
-            } else {
-                alert("Something went horribly wrong!");
-            }
-        }
+        playRound(computerSelection, event.target.id);
+     console.log(computerSelection);
+});
+});
 
-playGame();
-*/
+

@@ -45,6 +45,12 @@ function playRound(computerSelection, playerSelection) {
         keepPlayerScore();
         alert('Way to go! You win!');
     }
+
+    if (playerScore === 5) {
+        alert('You win! Congratulations!')
+    } else if (computerScore === 5) {
+        alert ('Dangit, the computer won this time...')
+    }
 }
 
 
@@ -64,7 +70,8 @@ btns.forEach (btn => {
     btn.addEventListener('click', (event) => {
         computerSelection = getComputerChoice(choices);
         playRound(computerSelection, event.target.id);
-     console.log(computerSelection);
+        console.log(computerSelection);
+
 });
 });
 
